@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Spin } from "antd";
+import { Spin, Button } from "antd";
 import Title from "antd/es/typography/Title";
 import { useEvents } from "./hook/useEvents";
 import { useJoinEventMutation } from "./api/joinEventApi";
@@ -12,6 +12,7 @@ import {
 import EventPostFilters from "../../components/filter/EventPostFilters";
 import EventPostList from "../../components/list/EventPostList";
 import PaginationControls from "../../components/pagination/PaginationControls";
+import CreateEventDrawer from "./components/CreateEventDrawer";
 
 const Events = () => {
   const [page, setPage] = useState(1);
@@ -23,6 +24,7 @@ const Events = () => {
     all: false,
   });
   const [joinedEvents, setJoinedEvents] = useState(new Set());
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const userId = useSelector(selectCurrentUserId);
@@ -59,13 +61,26 @@ const Events = () => {
     }
   };
 
+  const handleCreateEventClick = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    } else {
+      setDrawerVisible(true);
+    }
+  };
+
   if (isLoading) return <Spin tip="Loading events..." />;
   if (isError)
     return <div>Error: {error?.message || "Failed to load events"}</div>;
 
   return (
     <div className="p-6">
-      <Title className="text-2xl font-bold mb-4">Events</Title>
+      <div className="flex justify-between items-center mb-4">
+        <Title className="text-2xl font-bold">Events</Title>
+        <Button type="primary" onClick={handleCreateEventClick}>
+          Create New Event
+        </Button>
+      </div>
 
       <EventPostFilters
         filters={filters}
@@ -94,6 +109,11 @@ const Events = () => {
         page={page}
         pagination={pagination}
         onPageChange={setPage}
+      />
+
+      <CreateEventDrawer
+        visible={drawerVisible}
+        onClose={() => setDrawerVisible(false)}
       />
     </div>
   );
