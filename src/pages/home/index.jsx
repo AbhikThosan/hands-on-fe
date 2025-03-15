@@ -1,7 +1,12 @@
 import React from "react";
+import Events from "../../features/events";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <Events />
+    </>
+  );
 };
 
 export default Home;
