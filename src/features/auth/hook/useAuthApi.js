@@ -12,7 +12,9 @@ export const useAuth = () => {
     // eslint-disable-next-line no-useless-catch
     try {
       const response = await loginMutation(credentials).unwrap();
-      dispatch(setCredentials({ token: response.token }));
+      dispatch(
+        setCredentials({ token: response.token, userId: response.user.id })
+      );
       return response;
     } catch (error) {
       throw error;
