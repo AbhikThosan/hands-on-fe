@@ -1,12 +1,12 @@
 import React from "react";
 import { Form, Input, DatePicker } from "antd";
-import { CREATW_EVENT_FORM_INPUTS } from "../constant/createEventForm.const";
+import { CREATE_EVENT_FORM_INPUTS } from "../constant/createEventForm.const";
 
 const CreateEventFormInputs = () => {
   return (
     <>
       <Form.Item
-        name={CREATW_EVENT_FORM_INPUTS.TITLE}
+        name={CREATE_EVENT_FORM_INPUTS.TITLE}
         label="Title"
         rules={[{ required: true, message: "Please enter the event title" }]}
       >
@@ -14,7 +14,7 @@ const CreateEventFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name={CREATW_EVENT_FORM_INPUTS.DESCRIPTION}
+        name={CREATE_EVENT_FORM_INPUTS.DESCRIPTION}
         label="Description"
         rules={[{ required: true, message: "Please enter a description" }]}
       >
@@ -22,7 +22,7 @@ const CreateEventFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name={CREATW_EVENT_FORM_INPUTS.DATE}
+        name={CREATE_EVENT_FORM_INPUTS.DATE}
         label="Date"
         rules={[{ required: true, message: "Please select a date" }]}
       >
@@ -30,7 +30,7 @@ const CreateEventFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name={CREATW_EVENT_FORM_INPUTS.TIME}
+        name={CREATE_EVENT_FORM_INPUTS.TIME}
         label="Time"
         rules={[{ required: true, message: "Please select a time" }]}
       >
@@ -38,7 +38,7 @@ const CreateEventFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name={CREATW_EVENT_FORM_INPUTS.LOCATION}
+        name={CREATE_EVENT_FORM_INPUTS.LOCATION}
         label="Location"
         rules={[{ required: true, message: "Please enter the location" }]}
       >
@@ -46,7 +46,7 @@ const CreateEventFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name={CREATW_EVENT_FORM_INPUTS.CATEGORY}
+        name={CREATE_EVENT_FORM_INPUTS.CATEGORY}
         label="Category"
         rules={[{ required: true, message: "Please enter a category" }]}
       >
