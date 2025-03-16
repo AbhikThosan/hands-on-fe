@@ -1,8 +1,7 @@
-export const CREATE_EVENT_FORM_INPUTS = {
+export const CREATE_COMMUNITY_HELP_POST_FORM_INPUTS = {
   TITLE: "title",
   DESCRIPTION: "description",
-  DATE: "date",
-  TIME: "time",
   LOCATION: "location",
   CATEGORY: "category",
+  URGENCY: "urgency_level",
 };

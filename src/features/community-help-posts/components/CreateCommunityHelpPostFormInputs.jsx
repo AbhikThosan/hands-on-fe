@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Input, Select } from "antd";
+import { CREATE_COMMUNITY_HELP_POST_FORM_INPUTS } from "../constant/createCommunityHelpPostForm.const";
 
 const { Option } = Select;
 
@@ -7,7 +8,7 @@ const CreateCommunityHelpPostFormInputs = () => {
   return (
     <>
       <Form.Item
-        name="title"
+        name={CREATE_COMMUNITY_HELP_POST_FORM_INPUTS.TITLE}
         label="Title"
         rules={[{ required: true, message: "Please enter the post title" }]}
       >
@@ -15,7 +16,7 @@ const CreateCommunityHelpPostFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name="description"
+        name={CREATE_COMMUNITY_HELP_POST_FORM_INPUTS.DESCRIPTION}
         label="Description"
         rules={[{ required: true, message: "Please enter a description" }]}
       >
@@ -23,7 +24,7 @@ const CreateCommunityHelpPostFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name="location"
+        name={CREATE_COMMUNITY_HELP_POST_FORM_INPUTS.LOCATION}
         label="Location"
         rules={[{ required: true, message: "Please enter the location" }]}
       >
@@ -31,7 +32,7 @@ const CreateCommunityHelpPostFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name="category"
+        name={CREATE_COMMUNITY_HELP_POST_FORM_INPUTS.CATEGORY}
         label="Category"
         rules={[{ required: true, message: "Please enter a category" }]}
       >
@@ -39,7 +40,7 @@ const CreateCommunityHelpPostFormInputs = () => {
       </Form.Item>
 
       <Form.Item
-        name="urgency_level"
+        name={CREATE_COMMUNITY_HELP_POST_FORM_INPUTS.URGENCY}
         label="Urgency Level"
         rules={[{ required: true, message: "Please select an urgency level" }]}
       >
