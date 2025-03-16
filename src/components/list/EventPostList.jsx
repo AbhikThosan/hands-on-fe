@@ -25,6 +25,7 @@ const EventPostList = ({
             hasJoined={hasJoined}
             isJoining={isJoining}
             onJoin={onJoin}
+            label={label}
           />
         );
       })}

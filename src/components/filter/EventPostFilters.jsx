@@ -1,6 +1,5 @@
 import React from "react";
-import { Input, Select, DatePicker } from "antd";
-import moment from "moment";
+import { Input, Select } from "antd";
 
 const { Option } = Select;
 
@@ -25,11 +24,31 @@ const EventPostFilters = ({
         onChange={(e) => onFilterChange("location", e.target.value)}
         className="w-1/4"
       />
-      <DatePicker
-        onChange={(date, dateString) => onFilterChange("date", dateString)}
-        value={filters.date ? moment(filters.date) : null}
-        className="w-1/4"
-      />
+      {labels.urgency_level && (
+        <Select
+          placeholder={labels.urgency_level}
+          value={filters.urgency_level || undefined}
+          onChange={(value) => onFilterChange("urgency_level", value)}
+          className="w-1/4"
+          allowClear
+        >
+          <Option value="low">Low</Option>
+          <Option value="medium">Medium</Option>
+          <Option value="urgent">Urgent</Option>
+        </Select>
+      )}
+      {labels.status && (
+        <Select
+          placeholder={labels.status}
+          value={filters.status || undefined}
+          onChange={(value) => onFilterChange("status", value)}
+          className="w-1/4"
+          allowClear
+        >
+          <Option value="open">Open</Option>
+          <Option value="closed">Closed</Option>
+        </Select>
+      )}
       <Select
         value={filters.all ? "all" : limit.toString()}
         onChange={(value) => {
