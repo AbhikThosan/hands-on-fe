@@ -5,7 +5,7 @@ export const REGISTRATION_FORM_INPUTS = {
   EMAIL: "email",
   PASSWORD: "password",
   SKILLS: "skills",
-  CAUSES: "causes",
+  CAUSES: "causes_supported",
 };
 
 export const REGISTRATION_FORM_SKILLS = [
