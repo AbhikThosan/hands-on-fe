@@ -1,7 +1,12 @@
 import React from "react";
+import UserProfile from "../../features/user-profile";
 
-const UserProfile = () => {
-  return <>UserProfile</>;
+const Profile = () => {
+  return (
+    <>
+      <UserProfile />
+    </>
+  );
 };
 
-export default UserProfile;
+export default Profile;
