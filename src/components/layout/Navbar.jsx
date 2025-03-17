@@ -10,6 +10,8 @@ const Navbar = () => {
   const activeKey =
     location.pathname === "/"
       ? "home"
+      : location.pathname === "/profile"
+      ? "profile"
       : location.pathname === "/login"
       ? "login"
       : location.pathname === "/registration"
@@ -34,6 +36,22 @@ const Navbar = () => {
             }`}
           >
             Home
+          </Link>
+        </Menu.Item>
+        <Menu.Item
+          key="profile"
+          className="!text-white"
+          style={{ background: "transparent" }}
+        >
+          <Link
+            to="/profile"
+            className={`!transition-all !duration-500 !ease-in-out ${
+              activeKey === "profile"
+                ? "border-b-2 border-white"
+                : "border-b-2 border-transparent"
+            }`}
+          >
+            Profile
           </Link>
         </Menu.Item>
         <Menu.Item
