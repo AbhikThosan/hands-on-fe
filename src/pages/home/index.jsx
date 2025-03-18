@@ -1,12 +1,14 @@
 import React from "react";
 import Events from "../../features/events";
 import CommunityHelpPosts from "../../features/community-help-posts";
+import Intro from "../../components/Intro";
 
 const Home = () => {
   return (
     <>
-      <Events />
-      <CommunityHelpPosts />
+      <Intro />
+      <Events isHome={true} />
+      <CommunityHelpPosts isHome={true} />
     </>
   );
 };

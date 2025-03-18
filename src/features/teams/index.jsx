@@ -15,7 +15,7 @@ import InviteTeamMemberDrawer from "./components/InviteTeamMemberDrawer";
 
 const TeamList = () => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10); // Ensure this default value is set
+  const [limit, setLimit] = useState(10);
   const [sortBy, setSortBy] = useState("");
   const [search, setSearch] = useState("");
   const [createDrawerVisible, setCreateDrawerVisible] = useState(false);
@@ -25,7 +25,6 @@ const TeamList = () => {
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  // Custom hooks for fetching team data
   const {
     publicTeams,
     publicPagination,
@@ -58,7 +57,6 @@ const TeamList = () => {
     error: leaderboardError,
   } = useTeamsLeaderboard();
 
-  // Combine loading and error states
   const isLoading =
     isPublicLoading ||
     isCreatedLoading ||
@@ -82,16 +80,19 @@ const TeamList = () => {
     setJoinedTeams((prev) => new Set(prev).add(teamId));
   };
 
-  const handleInvitationRespond = () => {
-    // Could add refetch logic here if needed
-  };
+  const handleInvitationRespond = () => {};
 
   const handleInvite = (teamId) => {
     setSelectedTeamId(teamId);
     setInviteDrawerVisible(true);
   };
 
-  if (isLoading) return <Spin tip="Loading teams..." />;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Spin tip="Loading teams..." />
+      </div>
+    );
   if (isError)
     return <div>Error: {error?.message || "Failed to load teams"}</div>;
 

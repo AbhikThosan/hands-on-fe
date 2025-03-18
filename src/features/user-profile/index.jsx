@@ -20,7 +20,12 @@ const UserProfile = () => {
     return null;
   }
 
-  if (isLoading) return <Spin tip="Loading profile..." />;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Spin tip="Loading profile..." />
+      </div>
+    );
   if (isError)
     return <div>Error: {error?.message || "Failed to load profile"}</div>;
 
