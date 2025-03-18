@@ -10,6 +10,8 @@ const Navbar = () => {
   const activeKey =
     location.pathname === "/"
       ? "home"
+      : location.pathname === "/teams"
+      ? "teams"
       : location.pathname === "/profile"
       ? "profile"
       : location.pathname === "/login"
@@ -36,6 +38,22 @@ const Navbar = () => {
             }`}
           >
             Home
+          </Link>
+        </Menu.Item>
+        <Menu.Item
+          key="teams"
+          className="!text-white"
+          style={{ background: "transparent" }}
+        >
+          <Link
+            to="/teams"
+            className={`!transition-all !duration-500 !ease-in-out ${
+              activeKey === "teams"
+                ? "border-b-2 border-white"
+                : "border-b-2 border-transparent"
+            }`}
+          >
+            Teams
           </Link>
         </Menu.Item>
         <Menu.Item
