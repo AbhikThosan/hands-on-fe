@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Button, message } from "antd";
+import { Form, Button } from "antd";
 import { useUpdateProfileMutation } from "../api/userProfileApi";
 import EditUserProfileFormInput from "./EditUserProfileFormInput";
+import toast from "react-hot-toast";
 
 const EditUserProfileForm = ({ onClose, profile }) => {
   const [form] = Form.useForm();
@@ -10,12 +11,11 @@ const EditUserProfileForm = ({ onClose, profile }) => {
   const onFinish = async (values) => {
     try {
       await updateProfile(values).unwrap();
-      message.success("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
       onClose();
     } catch (error) {
-      message.error(
-        "Failed to update profile: " + (error.data?.message || "Unknown error")
-      );
+      const errorMessage = error.data?.message || "Unknown error";
+      toast.error(`Failed to update profile: ${errorMessage}`);
     }
   };
   return (

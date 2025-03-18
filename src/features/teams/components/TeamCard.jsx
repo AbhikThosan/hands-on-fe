@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Button, Typography, Avatar } from "antd";
 import { useJoinTeamMutation } from "../api/joinTeamApi";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const { Title, Text } = Typography;
 
@@ -22,8 +23,10 @@ const TeamCard = ({
     try {
       await joinTeam(team.id).unwrap();
       onJoinSuccess(team.id);
+      toast.success("Successfully joined the team!");
     } catch (error) {
-      console.error("Failed to join team:", error);
+      const errorMessage = error.data?.message || "Failed to join event.";
+      toast.error(errorMessage);
     }
   };
 

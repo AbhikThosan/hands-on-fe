@@ -1,6 +1,7 @@
 import React from "react";
-import { Drawer, Form, Input, Button, message } from "antd";
+import { Drawer, Form, Input, Button } from "antd";
 import { useSendTeamInvitationMutation } from "../api/teamInvitationApi";
+import toast from "react-hot-toast";
 
 const InviteTeamMemberDrawer = ({ visible, onClose, teamId }) => {
   const [form] = Form.useForm();
@@ -9,13 +10,14 @@ const InviteTeamMemberDrawer = ({ visible, onClose, teamId }) => {
   const onFinish = async (values) => {
     try {
       await sendInvitation({ teamId, user_email: values.user_email }).unwrap();
-      message.success("Invitation sent successfully!");
+      toast.success("Invitation sent successfully!");
       form.resetFields();
       onClose();
     } catch (error) {
-      message.error(
-        "Failed to send invitation: " + (error.data?.message || "Unknown error")
-      );
+      const errorMessage =
+        "Failed to send invitation: " +
+        (error.data?.message || "Unknown error");
+      toast.error(errorMessage);
     }
   };
 
@@ -26,7 +28,12 @@ const InviteTeamMemberDrawer = ({ visible, onClose, teamId }) => {
       onClose={onClose}
       visible={visible}
     >
-      <Form form={form} layout="vertical" onFinish={onFinish}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        requiredMark={false}
+      >
         <Form.Item
           name="user_email"
           label="User Email"

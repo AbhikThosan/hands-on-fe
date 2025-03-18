@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Form, Button, message } from "antd";
+import { Form, Button } from "antd";
 import { useCreateCommunityHelpPostMutation } from "../api/createCommunityHelpPostApi";
 import CreateCommunityHelpPostFormInputs from "./CreateCommunityHelpPostFormInputs";
+import toast from "react-hot-toast";
 
 const CreateCommunityHelpPostForm = ({ onClose }) => {
   const [form] = Form.useForm();
@@ -24,13 +25,12 @@ const CreateCommunityHelpPostForm = ({ onClose }) => {
         category: capitalizeWords(values.category),
       };
       await createCommunityHelpPost(postData).unwrap();
-      message.success("Community help post created successfully!");
+      toast.success("Community help post created successfully!");
       form.resetFields();
       onClose();
     } catch (error) {
-      message.error(
-        "Failed to create post: " + (error.data?.message || "Unknown error")
-      );
+      const errorMessage = error.data?.message || "Unknown error";
+      toast.error(`Failed to create community help post: ${errorMessage}`);
     }
   };
   return (

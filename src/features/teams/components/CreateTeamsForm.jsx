@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Button, message } from "antd";
+import { Form, Button } from "antd";
 import { useCreateTeamMutation } from "../api/createTeamApi";
 import CreateTeamsFormInputs from "./CreateTeamsFormInputs";
+import toast from "react-hot-toast";
 
 const CreateTeamsForm = ({ onClose }) => {
   const [form] = Form.useForm();
@@ -10,13 +11,12 @@ const CreateTeamsForm = ({ onClose }) => {
   const onFinish = async (values) => {
     try {
       await createTeam(values).unwrap();
-      message.success("Team created successfully!");
+      toast.success("Team created successfully!");
       form.resetFields();
       onClose();
     } catch (error) {
-      message.error(
-        "Failed to create team: " + (error.data?.message || "Unknown error")
-      );
+      const errorMessage = error.data?.message || "Unknown error";
+      toast.error(`Failed to create team: ${errorMessage}`);
     }
   };
   return (

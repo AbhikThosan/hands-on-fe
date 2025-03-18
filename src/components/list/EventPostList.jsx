@@ -5,7 +5,7 @@ const EventPostList = ({
   items,
   joinedItems,
   userId,
-  isJoining,
+  loadingEventId,
   onJoin,
   label,
 }) => {
@@ -23,7 +23,7 @@ const EventPostList = ({
             key={item.id}
             item={item}
             hasJoined={hasJoined}
-            isJoining={isJoining}
+            loadingEventId={loadingEventId}
             onJoin={onJoin}
             label={label}
           />

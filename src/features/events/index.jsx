@@ -13,6 +13,7 @@ import EventPostFilters from "../../components/filter/EventPostFilters";
 import EventPostList from "../../components/list/EventPostList";
 import PaginationControls from "../../components/pagination/PaginationControls";
 import CreateEventDrawer from "./components/CreateEventDrawer";
+import toast from "react-hot-toast";
 
 const Events = ({ isHome = false }) => {
   const [page, setPage] = useState(1);
@@ -40,7 +41,8 @@ const Events = ({ isHome = false }) => {
       all: filters.all,
     });
 
-  const [joinEvent, { isLoading: isJoining }] = useJoinEventMutation();
+  const [joinEvent] = useJoinEventMutation();
+  const [loadingEventId, setLoadingEventId] = useState(null);
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -52,12 +54,17 @@ const Events = ({ isHome = false }) => {
       navigate("/login");
       return;
     }
+    setLoadingEventId(eventId);
 
     try {
       await joinEvent(eventId).unwrap();
       setJoinedEvents((prev) => new Set(prev).add(eventId));
+      toast.success("Successfully joined the event!");
     } catch (err) {
-      console.error("Failed to join event:", err);
+      const errorMessage = err.data?.message || "Failed to join event.";
+      toast.error(errorMessage);
+    } finally {
+      setLoadingEventId(null);
     }
   };
 
@@ -114,7 +121,7 @@ const Events = ({ isHome = false }) => {
         items={events}
         joinedItems={joinedEvents}
         userId={userId}
-        isJoining={isJoining}
+        loadingEventId={loadingEventId}
         onJoin={handleJoinEvent}
         label="Event"
       />
