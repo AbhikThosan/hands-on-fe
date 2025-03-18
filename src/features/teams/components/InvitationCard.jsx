@@ -1,21 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Button, Typography } from "antd";
 import { useRespondToInvitationMutation } from "../api/teamInvitationApi";
+import toast from "react-hot-toast";
 
 const { Text } = Typography;
 
 const InvitationCard = ({ invitation, onRespond }) => {
-  const [respondToInvitation, { isLoading }] = useRespondToInvitationMutation();
+  const [respondToInvitation] = useRespondToInvitationMutation();
+  const [loadingState, setLoadingState] = useState({
+    accept: false,
+    decline: false,
+  });
 
   const handleRespond = async (accept) => {
+    setLoadingState({ ...loadingState, [accept ? "accept" : "decline"]: true });
+
     try {
       await respondToInvitation({
         invitationId: invitation.id,
         accept,
       }).unwrap();
+
+      toast.success(
+        `Invitation ${accept ? "accepted" : "declined"} successfully`
+      );
       onRespond(invitation.id);
     } catch (error) {
-      console.error("Failed to respond to invitation:", error);
+      const errorMessage = error.data?.message || "Unknown error";
+      toast.error(`Failed to respond to invitation: ${errorMessage}`);
+    } finally {
+      setLoadingState({ accept: false, decline: false });
     }
   };
 
@@ -36,12 +50,15 @@ const InvitationCard = ({ invitation, onRespond }) => {
         <Button
           type="primary"
           onClick={() => handleRespond(true)}
-          loading={isLoading}
-          className="mr-2"
+          loading={loadingState.accept}
+          className="!mr-2"
         >
           Accept
         </Button>
-        <Button onClick={() => handleRespond(false)} loading={isLoading}>
+        <Button
+          onClick={() => handleRespond(false)}
+          loading={loadingState.decline}
+        >
           Decline
         </Button>
       </div>

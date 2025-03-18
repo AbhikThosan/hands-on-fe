@@ -7,7 +7,7 @@ const truncateText = (text, length = 100) => {
   return text.length > length ? text.slice(0, length) + "..." : text;
 };
 
-const EventPostCard = ({ item, hasJoined, isJoining, onJoin, label }) => {
+const EventPostCard = ({ item, hasJoined, loadingEventId, onJoin, label }) => {
   const isEvent = label === "Event";
 
   const details = isEvent
@@ -42,7 +42,7 @@ const EventPostCard = ({ item, hasJoined, isJoining, onJoin, label }) => {
 
         {Object.entries(details).map(([key, value]) => (
           <div key={key}>
-            <Text strong>{key}: </Text> {/* Key is already capitalized */}
+            <Text strong>{key}: </Text>
             <Text>{value}</Text>
           </div>
         ))}
@@ -52,8 +52,8 @@ const EventPostCard = ({ item, hasJoined, isJoining, onJoin, label }) => {
         <Button
           type="primary"
           onClick={() => onJoin(item.id)}
-          disabled={hasJoined || isJoining}
-          loading={isJoining}
+          disabled={hasJoined || loadingEventId === item.id}
+          loading={loadingEventId === item.id}
           className="!mt-3"
         >
           {hasJoined ? "Joined" : "Join"}

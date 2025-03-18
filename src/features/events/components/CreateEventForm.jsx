@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Form, Button, message } from "antd";
+import { Form, Button } from "antd";
 
 import { useCreateEventMutation } from "../api/createEventApi";
 import CreateEventFormInputs from "./CreateEventFormInputs";
+import toast from "react-hot-toast";
 
 function CreateEventForm({ onClose }) {
   const [form] = Form.useForm();
@@ -26,13 +27,12 @@ function CreateEventForm({ onClose }) {
         category: capitalizeWords(values.category),
       };
       await createEvent(eventData).unwrap();
-      message.success("Event created successfully!");
+      toast.success("Event created successfully!");
       form.resetFields();
       onClose();
     } catch (error) {
-      message.error(
-        "Failed to create event: " + (error.data?.message || "Unknown error")
-      );
+      const errorMessage = error.data?.message || "Unknown error";
+      toast.error(`Failed to create event: ${errorMessage}`);
     }
   };
 
