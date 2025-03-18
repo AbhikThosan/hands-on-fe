@@ -14,7 +14,7 @@ import EventPostList from "../../components/list/EventPostList";
 import PaginationControls from "../../components/pagination/PaginationControls";
 import CreateEventDrawer from "./components/CreateEventDrawer";
 
-const Events = () => {
+const Events = ({ isHome = false }) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [filters, setFilters] = useState({
@@ -69,7 +69,12 @@ const Events = () => {
     }
   };
 
-  if (isLoading) return <Spin tip="Loading events..." />;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Spin tip="Loading events..." />
+      </div>
+    );
   if (isError)
     return <div>Error: {error?.message || "Failed to load events"}</div>;
 
@@ -77,22 +82,31 @@ const Events = () => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <Title className="text-2xl font-bold">Events</Title>
-        <Button type="primary" onClick={handleCreateEventClick}>
-          Create New Event
-        </Button>
+        {isHome && (
+          <Button type="primary" onClick={() => navigate("/events")}>
+            See more
+          </Button>
+        )}
+        {!isHome && (
+          <Button type="primary" onClick={handleCreateEventClick}>
+            Create New Event
+          </Button>
+        )}
       </div>
 
-      <EventPostFilters
-        filters={filters}
-        limit={limit}
-        onFilterChange={handleFilterChange}
-        onLimitChange={(value) => setLimit(value)}
-        labels={{
-          category: "Event Category",
-          location: "Location",
-          date: "Date",
-        }}
-      />
+      {!isHome && (
+        <EventPostFilters
+          filters={filters}
+          limit={limit}
+          onFilterChange={handleFilterChange}
+          onLimitChange={(value) => setLimit(value)}
+          labels={{
+            category: "Event Category",
+            location: "Location",
+            date: "Date",
+          }}
+        />
+      )}
 
       {isFetching && <Spin tip="Fetching updates..." />}
 
@@ -104,17 +118,20 @@ const Events = () => {
         onJoin={handleJoinEvent}
         label="Event"
       />
+      {!isHome && (
+        <>
+          <PaginationControls
+            page={page}
+            pagination={pagination}
+            onPageChange={setPage}
+          />
 
-      <PaginationControls
-        page={page}
-        pagination={pagination}
-        onPageChange={setPage}
-      />
-
-      <CreateEventDrawer
-        visible={drawerVisible}
-        onClose={() => setDrawerVisible(false)}
-      />
+          <CreateEventDrawer
+            visible={drawerVisible}
+            onClose={() => setDrawerVisible(false)}
+          />
+        </>
+      )}
     </div>
   );
 };

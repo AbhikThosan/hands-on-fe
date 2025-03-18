@@ -1,19 +1,29 @@
 import { Button, Form } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 import RegistrationFormInputs from "./RegistrationFormInputs";
 import { REGISTRATION_FORM_NAME } from "../constant/registrationFrom.const";
 import { useAuth } from "../../hook/useAuthApi";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
   const { register } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const handleRegistrationSubmit = async (evt) => {
+    setLoading(true);
     try {
       await register(evt);
-      alert("Registration successful!");
+      toast.success("Registration successful!");
+      navigate("/login");
     } catch (error) {
-      alert("Registration failed: " + error.message);
+      toast.error(`Registration failed: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <>
       <Form
@@ -23,8 +33,8 @@ const RegistrationForm = () => {
         requiredMark={false}
       >
         <RegistrationFormInputs />
-        <Button type="primary" htmlType="submit" block>
-          Submit
+        <Button type="primary" htmlType="submit" block loading={loading}>
+          {loading ? "Registering..." : "Submit"}
         </Button>
       </Form>
     </>

@@ -10,7 +10,7 @@ import PaginationControls from "../../components/pagination/PaginationControls";
 import CreateCommunityHelpPostDrawer from "./components/CreateCommunityHelpPostDrawer";
 import { useCommunityHelpPosts } from "./hook/useCommunityHelpPosts";
 
-const CommunityHelpPosts = () => {
+const CommunityHelpPosts = ({ isHome = false }) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [filters, setFilters] = useState({
@@ -49,7 +49,12 @@ const CommunityHelpPosts = () => {
     }
   };
 
-  if (isLoading) return <Spin tip="Loading community help posts..." />;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Spin tip="Loading community help posts..." />
+      </div>
+    );
   if (isError)
     return <div>Error: {error?.message || "Failed to load posts"}</div>;
 
@@ -57,23 +62,32 @@ const CommunityHelpPosts = () => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <Title className="text-2xl font-bold">Community Help Posts</Title>
-        <Button type="primary" onClick={handleCreatePostClick}>
-          Create New Post
-        </Button>
+        {isHome && (
+          <Button type="primary" onClick={() => navigate("/community-help")}>
+            See more
+          </Button>
+        )}
+        {!isHome && (
+          <Button type="primary" onClick={handleCreatePostClick}>
+            Create New Post
+          </Button>
+        )}
       </div>
 
-      <EventPostFilters
-        filters={filters}
-        limit={limit}
-        onFilterChange={handleFilterChange}
-        onLimitChange={(value) => setLimit(value)}
-        labels={{
-          category: "Category",
-          location: "Location",
-          urgency_level: "Urgency Level",
-          status: "Status",
-        }}
-      />
+      {!isHome && (
+        <EventPostFilters
+          filters={filters}
+          limit={limit}
+          onFilterChange={handleFilterChange}
+          onLimitChange={(value) => setLimit(value)}
+          labels={{
+            category: "Category",
+            location: "Location",
+            urgency_level: "Urgency Level",
+            status: "Status",
+          }}
+        />
+      )}
 
       {isFetching && <Spin tip="Fetching updates..." />}
 
@@ -86,16 +100,20 @@ const CommunityHelpPosts = () => {
         label="Community Help Post"
       />
 
-      <PaginationControls
-        page={page}
-        pagination={pagination}
-        onPageChange={setPage}
-      />
+      {!isHome && (
+        <>
+          <PaginationControls
+            page={page}
+            pagination={pagination}
+            onPageChange={setPage}
+          />
 
-      <CreateCommunityHelpPostDrawer
-        visible={drawerVisible}
-        onClose={() => setDrawerVisible(false)}
-      />
+          <CreateCommunityHelpPostDrawer
+            visible={drawerVisible}
+            onClose={() => setDrawerVisible(false)}
+          />
+        </>
+      )}
     </div>
   );
 };

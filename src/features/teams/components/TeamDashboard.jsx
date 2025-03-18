@@ -21,7 +21,12 @@ const TeamDashboard = () => {
     return null;
   }
 
-  if (isLoading) return <Spin tip="Loading team dashboard..." />;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Spin tip="Loading team dashboard..." />
+      </div>
+    );
   if (isError)
     return <div>Error: {error?.message || "Failed to load dashboard"}</div>;
 
