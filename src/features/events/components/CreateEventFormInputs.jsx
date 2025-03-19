@@ -1,8 +1,18 @@
 import React from "react";
 import { Form, Input, DatePicker } from "antd";
 import { CREATE_EVENT_FORM_INPUTS } from "../constant/createEventForm.const";
+import dayjs from "dayjs";
 
 const CreateEventFormInputs = () => {
+  const disablePastDates = (current) => {
+    return current && current < dayjs().startOf("day");
+  };
+
+  const disablePastTimes = (current) => {
+    const now = dayjs();
+    return current && current < now;
+  };
+
   return (
     <>
       <Form.Item
@@ -26,7 +36,7 @@ const CreateEventFormInputs = () => {
         label="Date"
         rules={[{ required: true, message: "Please select a date" }]}
       >
-        <DatePicker className="w-full" />
+        <DatePicker className="w-full" disabledDate={disablePastDates} />
       </Form.Item>
 
       <Form.Item
@@ -34,7 +44,11 @@ const CreateEventFormInputs = () => {
         label="Time"
         rules={[{ required: true, message: "Please select a time" }]}
       >
-        <DatePicker.TimePicker className="w-full" format="HH:mm:ss" />
+        <DatePicker.TimePicker
+          className="w-full"
+          format="HH:mm:ss"
+          disabledTime={disablePastTimes}
+        />
       </Form.Item>
 
       <Form.Item

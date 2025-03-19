@@ -1,90 +1,181 @@
-# HandsOn - Frontend
+# [HandsOn](https://hands-on-fe.vercel.app/) - Community-Driven Social Volunteering Platform (Frontend)
 
-## 🚀 Project Overview
+## 📌 1. Project Overview
 
-HandsOn is a **community-driven social volunteering platform** that connects individuals with meaningful social impact opportunities. Users can:
-
-- Discover and join volunteer events.
-- Post and respond to community help requests.
-- Form teams to organize long-term initiatives.
-- Track and showcase their contributions.
-
-The frontend is built with **React.js** and **Tailwind CSS**, providing a seamless user experience.
+HandsOn is a backend service for a community-driven social volunteering platform that connects individuals with meaningful social impact opportunities. It provides APIs for users to register, manage profiles, create and join volunteer events, post community help requests, form teams for collaborative initiatives, and track contributions. Designed as a "GitHub for social work" backend, HandsOn supports social responsibility and collaboration by rewarding participants with points and enabling recognition features.
 
 ## 🛠 Technologies Used
 
-- **React.js** - Frontend framework
-- **Tailwind CSS** - Styling framework
-- **Redux Toolkit** - State management
-- **React Router** - Navigation management
-- **Axios** - API requests
+- **React.js**: Frontend framework
+- **Redux Toolkit**: State management
+- **RTK Query**: API communication and caching
+- **Ant Design**: UI components
+- **Tailwind CSS**: Styling
+- **React Router**: Routing
+- **react-hot-toast**: Notifications
 
-## 🎯 Features
+## 📌 3. Features
 
-- **User Authentication**: Secure login and registration using JWT.
-- **Profile Management**: Edit profile, view volunteer history, and manage contributions.
-- **Event Listing & Filtering**: Browse and filter events based on categories, location, and availability.
-- **Community Help Requests**: Post and respond to ongoing social impact initiatives.
-- **Team Collaboration**: Create and manage teams for larger initiatives.
-- **Impact Tracking**: Log volunteer hours and earn recognition through a points-based system.
+- **User Registration & Profile Management:**
+  - Sign up and log in with email and password via API.
+  - Update profiles with skills, causes supported, and personal details.
+  - Retrieve volunteer history, hours, and contribution points.
+- **Volunteer Events:**
+  - Create events with title, description, date, time, location, and category.
+  - Browse and filter events by category, location, or date.
+  - Join events via API with instant attendee updates.
+- **Community Help Requests:**
+  - Post help requests with title, description, location, category, and urgency level (low, medium, urgent).
+  - Add comments to coordinate or offer assistance.
+  - Update request status (open, in_progress, completed, closed).
+- **Teams & Group Initiatives:**
+  - Form public (open to all) or private (invite-only) teams.
+  - Access team dashboards with members, events, and achievements.
+  - View a leaderboard of top-performing teams based on achievement points.
 
 ## 📂 Project Structure
 
-```
-/src
-│── components/        # Reusable UI components
-│── pages/             # Main application pages
-│── features/          # Redux slices and business logic
-│── api/               # API calls using Axios
-│── hooks/             # Custom React hooks
-│── utils/             # Utility functions
-│── assets/            # Static assets (images, icons, etc.)
-│── App.js             # Main application component
-│── index.js           # Entry point
-```
+Below is the **flowchart-style structure** of the frontend:
+
+src/
+├── App.jsx
+├── index.css
+├── main.jsx
+├── assets/
+├── components/
+│ ├── layout/
+│ │ ├── Navbar.jsx
+│ │ ├── AppLayout.jsx
+│ │ └── AppFooter.jsx
+│ ├── card/
+│ │ └── EventPostCard.jsx
+│ ├── filter/
+│ │ └── EventPostFilters.jsx
+│ ├── list/
+│ │ └── EventPostList.jsx
+│ └── pagination/
+│ └── PaginationControls.jsx
+├── features/
+│ ├── auth/
+│ │ ├── login/
+│ │ │ ├── api/
+│ │ │ │ └── loginApi.js
+│ │ │ ├── components/
+│ │ │ │ ├── LoginForm.jsx
+│ │ │ │ └── LoginFormInputs.jsx
+│ │ │ └── constant/
+│ │ │ └── loginForm.const.js
+│ │ ├── registration/
+│ │ │ ├── api/
+│ │ │ │ └── registrationApi.js
+│ │ │ ├── components/
+│ │ │ │ ├── RegistrationForm.jsx
+│ │ │ │ └── RegistrationFormInputs.jsx
+│ │ │ └── constant/
+│ │ │ └── registrationForm.const.js
+│ │ ├── slice/
+│ │ │ └── authSlice.js
+│ │ └── hook/
+│ │ └── useAuthApi.js
+│ ├── events/
+│ │ ├── api/
+│ │ │ ├── createEventApi.js
+│ │ │ ├── eventsApi.js
+│ │ │ └── joinEventApi.js
+│ │ ├── components/
+│ │ │ ├── CreateEventDrawer.jsx
+│ │ │ ├── CreateEventForm.jsx
+│ │ │ └── CreateEventFormInputs.jsx
+│ │ ├── constant/
+│ │ │ └── createEventForm.const.js
+│ │ └── hook/
+│ │ └── useEvents.js
+│ ├── community-help-posts/
+│ │ ├── api/
+│ │ │ ├── communityHelpApi.js
+│ │ │ ├── communityHelpPostsApi.js
+│ │ │ └── createCommunityHelpPostApi.js
+│ │ ├── components/
+│ │ │ ├── CreateCommunityHelpPostDrawer.jsx
+│ │ │ ├── CreateCommunityHelpPostForm.jsx
+│ │ │ └── CreateCommunityHelpPostFormInputs.jsx
+│ │ ├── constant/
+│ │ │ └── createCommunityHelpPostForm.const.js
+│ │ └── hook/
+│ │ └── useCommunityHelp.js
+│ ├── teams/
+│ │ ├── api/
+│ │ │ ├── createTeamApi.js
+│ │ │ ├── joinTeamApi.js
+│ │ │ ├── publicTeamsApi.js
+│ │ │ └── teamDashboardApi.js
+│ │ ├── components/
+│ │ │ ├── CreateTeamDrawer.jsx
+│ │ │ ├── CreateTeamsForm.jsx
+│ │ │ └── TeamCard.jsx
+│ │ ├── constant/
+│ │ │ └── createTeamForm.const.js
+│ │ └── hook/
+│ │ └── usePublicTeams.js
+│ └── user-profile/
+│ ├── api/
+│ │ └── userProfileApi.js
+│ ├── components/
+│ │ ├── EditUserProfileDrawer.jsx
+│ │ ├── EditUserProfileForm.jsx
+│ │ └── EditUserProfileFormInput.jsx
+│ ├── constant/
+│ │ └── editUserProfileForm.const.js
+│ └── hook/
+│ └── useUserProfile.js
+├── pages/
+│ ├── home/
+│ │ └── HomePage.jsx
+│ ├── auth/
+│ │ ├── login/
+│ │ │ └── LoginPage.jsx
+│ │ └── registration/
+│ │ └── RegistrationPage.jsx
+│ ├── events/
+│ │ └── EventsPage.jsx
+│ ├── community-help/
+│ │ └── CommunityHelpPage.jsx
+│ ├── profile/
+│ │ └── ProfilePage.jsx
+│ └── teams/
+│ └── TeamsPage.jsx
+├── services/
+│ └── apiSlice.js
+└── store/
+└── store.js
+
+---
 
 ## 🔧 Setup Instructions
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/your-username/hands-on-frontend.git
+1. **Clone the Repository**
+   sh
+   git clone https://github.com/AbhikThosan/hands-on-fe.git
    cd hands-on-frontend
-   ```
-2. **Install dependencies:**
-   ```sh
+
+2. **Install Dependencies**
+   sh
    npm install
-   ```
-3. **Create a `.env` file and configure environment variables:**
-   ```sh
-   REACT_APP_API_URL=http://localhost:5000/api
-   ```
-4. **Run the development server:**
-   ```sh
-   npm start
-   ```
 
-## 🔌 API Endpoints
+3. **Run the Development Server**
+   sh
+   npm run dev
 
-The frontend interacts with the backend via REST API. Some key endpoints include:
+4. **Build for Production**
+   sh
+   npm run build
 
-- `POST /api/auth/register` – User registration
-- `POST /api/auth/login` – User login
-- `GET /api/events` – Fetch all events
-- `POST /api/events` – Create a new event
-- `GET /api/help-requests` – Fetch community help requests
+---
 
-(For a complete list, refer to the [Backend Documentation](#))
+## 🚀 Running the Project
 
-## 🚀 Deployment
+1. Start the development server:
+   sh
+   npm run dev
 
-To deploy the frontend to Vercel or Netlify:
-
-```sh
-npm run build
-```
-
-Then, follow the respective platform's deployment process.
-
-## 📜 License
-
-This project is licensed under the MIT License.
+2. Open the app in your browser at `http://localhost:5173`.
