@@ -8,9 +8,10 @@ import AppLayout from "./components/layout/AppLayout";
 import UserProfile from "./pages/profile";
 import Teams from "./pages/teams";
 import TeamDashboard from "./features/teams/components/TeamDashboard";
-import Events from "./features/events";
-import CommunityHelpPosts from "./features/community-help-posts";
 import { Toaster } from "react-hot-toast";
+import CommunityHelpPostDetail from "./features/community-help-posts/components/CommunityHelpPostDetail";
+import EventsWrapper from "./pages/events";
+import CommunityHelpPostsWrapper from "./pages/community-help";
 
 const App = () => {
   return (
@@ -18,8 +19,15 @@ const App = () => {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/community-help" element={<CommunityHelpPosts />} />
+          <Route path="/events" element={<EventsWrapper />} />
+          <Route
+            path="/community-help"
+            element={<CommunityHelpPostsWrapper />}
+          />
+          <Route
+            path="/community-help/:id"
+            element={<CommunityHelpPostDetail />}
+          />
           <Route path="/teams" element={<Teams />} />
           <Route path="/teams/:teamId/dashboard" element={<TeamDashboard />} />
           <Route path="/profile" element={<UserProfile />} />
