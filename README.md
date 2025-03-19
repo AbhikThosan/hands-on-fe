@@ -131,7 +131,7 @@ src/
 1. **Clone the Repository**
    sh
    git clone https://github.com/AbhikThosan/hands-on-fe.git
-   cd hands-on-frontend
+   cd hands-on-fe
 
 2. **Install Dependencies**
    sh
