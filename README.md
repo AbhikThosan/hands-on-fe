@@ -33,123 +33,98 @@ HandsOn is a backend service for a community-driven social volunteering platform
   - Access team dashboards with members, events, and achievements.
   - View a leaderboard of top-performing teams based on achievement points.
 
-## 📂 Project Structure
+# Project Structure
 
-Below is the **flowchart-style structure** of the frontend:
+This document outlines the frontend architecture of our application.
 
+## Directory Structure
+
+```
 src/
-├── App.jsx
-├── index.css
-├── main.jsx
-├── assets/
-├── components/
-│ ├── layout/
-│ │ ├── Navbar.jsx
-│ │ ├── AppLayout.jsx
-│ │ └── AppFooter.jsx
-│ ├── card/
-│ │ └── EventPostCard.jsx
-│ ├── filter/
-│ │ └── EventPostFilters.jsx
-│ ├── list/
-│ │ └── EventPostList.jsx
-│ └── pagination/
-│ └── PaginationControls.jsx
-├── features/
-│ ├── auth/
-│ │ ├── login/
-│ │ │ ├── api/
-│ │ │ │ └── loginApi.js
-│ │ │ ├── components/
-│ │ │ │ ├── LoginForm.jsx
-│ │ │ │ └── LoginFormInputs.jsx
-│ │ │ └── constant/
-│ │ │ └── loginForm.const.js
-│ │ ├── registration/
-│ │ │ ├── api/
-│ │ │ │ └── registrationApi.js
-│ │ │ ├── components/
-│ │ │ │ ├── RegistrationForm.jsx
-│ │ │ │ └── RegistrationFormInputs.jsx
-│ │ │ └── constant/
-│ │ │ └── registrationForm.const.js
-│ │ ├── slice/
-│ │ │ └── authSlice.js
-│ │ └── hook/
-│ │ └── useAuthApi.js
-│ ├── events/
-│ │ ├── api/
-│ │ │ ├── createEventApi.js
-│ │ │ ├── eventsApi.js
-│ │ │ └── joinEventApi.js
-│ │ ├── components/
-│ │ │ ├── CreateEventDrawer.jsx
-│ │ │ ├── CreateEventForm.jsx
-│ │ │ └── CreateEventFormInputs.jsx
-│ │ ├── constant/
-│ │ │ └── createEventForm.const.js
-│ │ └── hook/
-│ │ └── useEvents.js
-│ ├── community-help-posts/
-│ │ ├── api/
-│ │ │ ├── communityHelpApi.js
-│ │ │ ├── communityHelpPostsApi.js
-│ │ │ └── createCommunityHelpPostApi.js
-│ │ ├── components/
-│ │ │ ├── CreateCommunityHelpPostDrawer.jsx
-│ │ │ ├── CreateCommunityHelpPostForm.jsx
-│ │ │ └── CreateCommunityHelpPostFormInputs.jsx
-│ │ ├── constant/
-│ │ │ └── createCommunityHelpPostForm.const.js
-│ │ └── hook/
-│ │ └── useCommunityHelp.js
-│ ├── teams/
-│ │ ├── api/
-│ │ │ ├── createTeamApi.js
-│ │ │ ├── joinTeamApi.js
-│ │ │ ├── publicTeamsApi.js
-│ │ │ └── teamDashboardApi.js
-│ │ ├── components/
-│ │ │ ├── CreateTeamDrawer.jsx
-│ │ │ ├── CreateTeamsForm.jsx
-│ │ │ └── TeamCard.jsx
-│ │ ├── constant/
-│ │ │ └── createTeamForm.const.js
-│ │ └── hook/
-│ │ └── usePublicTeams.js
-│ └── user-profile/
-│ ├── api/
-│ │ └── userProfileApi.js
-│ ├── components/
-│ │ ├── EditUserProfileDrawer.jsx
-│ │ ├── EditUserProfileForm.jsx
-│ │ └── EditUserProfileFormInput.jsx
-│ ├── constant/
-│ │ └── editUserProfileForm.const.js
-│ └── hook/
-│ └── useUserProfile.js
-├── pages/
-│ ├── home/
-│ │ └── HomePage.jsx
-│ ├── auth/
-│ │ ├── login/
-│ │ │ └── LoginPage.jsx
-│ │ └── registration/
-│ │ └── RegistrationPage.jsx
-│ ├── events/
-│ │ └── EventsPage.jsx
-│ ├── community-help/
-│ │ └── CommunityHelpPage.jsx
-│ ├── profile/
-│ │ └── ProfilePage.jsx
-│ └── teams/
-│ └── TeamsPage.jsx
-├── services/
-│ └── apiSlice.js
-└── store/
-└── store.js
+├── App.jsx                     # Main application component
+├── index.css                   # Global styles
+├── main.jsx                    # Entry point
+├── assets/                     # Images, fonts, etc.
+├── components/                 # Shared UI components
+│   ├── layout/                 # Layout components
+│   ├── card/                   # Card components
+│   ├── filter/                 # Filter components
+│   ├── list/                   # List components
+│   └── pagination/             # Pagination components
+├── features/                   # Feature modules
+│   ├── auth/                   # Authentication feature
+│   ├── events/                 # Events feature
+│   ├── community-help-posts/   # Community help posts feature
+│   ├── teams/                  # Teams feature
+│   └── user-profile/           # User profile feature
+├── pages/                      # Page components
+│   ├── home/                   # Home page
+│   ├── auth/                   # Auth pages
+│   ├── events/                 # Events page
+│   ├── community-help/         # Community help page
+│   ├── profile/                # Profile page
+│   └── teams/                  # Teams page
+├── services/                   # API services
+│   └── apiSlice.js             # Core API configuration
+└── store/                      # Redux store
+    └── store.js                # Store configuration
+```
 
----
+## Detailed Structure
+
+### Components
+
+- **Layout**: `Navbar`, `AppLayout`, `AppFooter`
+- **Card**: `EventPostCard`
+- **Filter**: `EventPostFilters`
+- **List**: `EventPostList`
+- **Pagination**: `PaginationControls`
+
+### Features
+
+#### Authentication
+
+- **Login**: API, components, and constants
+- **Registration**: API, components, and constants
+- **Shared**: Auth slice and hooks
+
+#### Events
+
+- **API**: Create, list, and join events
+- **Components**: Creation forms and drawers
+- **Hooks**: `useEvents`
+
+#### Community Help Posts
+
+- **API**: Create and list posts
+- **Components**: Creation forms and drawers
+- **Hooks**: `useCommunityHelp`
+
+#### Teams
+
+- **API**: Create, join, and list teams
+- **Components**: Creation forms and team card
+- **Hooks**: `usePublicTeams`
+
+#### User Profile
+
+- **API**: User profile management
+- **Components**: Edit profile form and drawer
+- **Hooks**: `useUserProfile`
+
+### Pages
+
+- **Home**: Main landing page
+- **Auth**: Login and registration pages
+- **Events**: Events listing and management
+- **Community Help**: Community help posts page
+- **Profile**: User profile page
+- **Teams**: Teams management page
+
+### Services & Store
+
+- **apiSlice.js**: Core API configuration with RTK Query
+- **store.js**: Redux store configuration
 
 ## 🔧 Setup Instructions
 
